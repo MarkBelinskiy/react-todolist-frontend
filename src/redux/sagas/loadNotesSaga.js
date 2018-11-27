@@ -1,19 +1,26 @@
-import { call, put, takeEvery } from 'redux-saga/effects'
+import { call, put, takeEvery, select } from 'redux-saga/effects'
 import { API_URL } from '../../config';
 import axios from 'axios'
 
 import { LOAD_NOTES_FAILURE, LOAD_NOTES_REQUEST, LOAD_NOTES_SUCCESS, } from './../actions'
 
-function getNotes() {
+function getNotes( pageNumber, size ) {
 	return axios( {
 		method: "get",
-		url: API_URL + '/notes/'
+		url: API_URL + '/notes/',
+		params: { pageNumber, size },
 	} );
 }
 
-function* loadNotesSaga() {
+function* loadNotesSaga( action ) {
 	try {
-		const response = yield call( getNotes );
+
+		const getNotesFields = ( state ) => state.notesFields;
+		const notesFields = yield select( getNotesFields );
+		let { hasMoreNotes } = notesFields;
+		const { pageNumber, size } = action;
+
+		const response = yield call( getNotes, pageNumber, size );
 
 		const notes = response.data.notes.map( noteItem => ({
 			id: noteItem._id,
@@ -21,7 +28,13 @@ function* loadNotesSaga() {
 			note: noteItem.note
 		} ) );
 
-		yield put( { type: LOAD_NOTES_SUCCESS, notes } );
+		const totalPages = response.data.totalPages;
+
+		totalPages === pageNumber ? hasMoreNotes = false : hasMoreNotes = true;
+		console.log( totalPages );
+		console.log( pageNumber );
+
+		yield put( { type: LOAD_NOTES_SUCCESS, notes, pageNumber, hasMoreNotes, totalPages } );
 	} catch ( error ) {
 		yield put( { type: LOAD_NOTES_FAILURE, error: error.response.data.message } );
 	}

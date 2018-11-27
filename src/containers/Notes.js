@@ -6,7 +6,7 @@ import Note from '../components/notes/note/Note';
 import * as noteActions from '../redux/actions'
 import Packery from 'packery';
 
-
+//todo: infinite note scroll!!
 class Notes extends Component {
 	static propTypes = {
 		notes: PropTypes.array.isRequired,
@@ -29,20 +29,45 @@ class Notes extends Component {
 	componentDidMount() {
 		const packery = this.packery();
 		const { loadNotesRequest } = this.props;
+		window.addEventListener( 'scroll', this.onScroll, false );
+
 		packery.layout();
 		loadNotesRequest();
+	}
+
+	componentWillUnmount() {
+		window.removeEventListener( 'scroll', this.onScroll, false );
 	}
 
 	componentDidUpdate() {
 		const packery = this.packery();
 		packery.layout();
+
 	}
 
+	onScroll = () => {
+		console.log( window.innerHeight + window.scrollY );
+		console.log( document.body.offsetHeight );
+		console.log(this.props.hasMoreNotes);
+
+		if (
+			(window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 200) && this.props.hasMoreNotes
+		) {
+			console.log( 'lalala' );
+			this.props.loadNotesRequest( this.props.pageNumber + 1 );
+		}
+	}
+
+
 	render() {
-		const { notes, removeNote, updateNote } = this.props;
+		const { notes, pageNumber, hasMoreNotes, removeNote, updateNote, loadNotesRequest } = this.props;
+
 		return (
-			<div className="notes-container">
-				<div className="grid">
+			<div className="notes-container" id="js-notes">
+				{ hasMoreNotes && <button onClick={ () => loadNotesRequest( pageNumber + 1 ) }>more</button> }
+
+
+				<div className="grid" onScroll={ this.handleScroll }>
 					<div className="grid-sizer">
 					</div>
 					<div className="gutter-sizer">
@@ -54,6 +79,7 @@ class Notes extends Component {
 								  updateNote={ updateNote }/>
 						)
 					}
+
 				</div>
 			</div>
 		);
@@ -63,14 +89,16 @@ class Notes extends Component {
 const mapStateToProps = state => {
 	return {
 		notes: state.notesFields.notes,
-		isFetching: state.notesFields.isFetching
+		isFetching: state.notesFields.isFetching,
+		pageNumber: state.notesFields.pageNumber,
+		hasMoreNotes: state.notesFields.hasMoreNotes,
 	};
 };
 
 const mapDispatchToProps = dispatch => {
 	return {
-		loadNotesRequest: ( params ) => {
-			dispatch( noteActions.loadNotesRequest( params ) )
+		loadNotesRequest: ( pageNumber, size ) => {
+			dispatch( noteActions.loadNotesRequest( pageNumber, size ) )
 		},
 		removeNote: ( id ) => {
 			dispatch( noteActions.removeNote( id ) )

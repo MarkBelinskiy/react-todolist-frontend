@@ -18,6 +18,9 @@ const initialState = {
 	isFetching: false,
 	notes: [],
 	error: null,
+	pageNumber: 1,
+	hasMoreNotes: true,
+	totalPages: 1
 };
 
 export default function notesFields( state = initialState, action ) {
@@ -33,7 +36,10 @@ export default function notesFields( state = initialState, action ) {
 			return {
 				...state,
 				isFetching: false,
-				notes: state.notes.concat( action.notes )
+				notes: state.notes.concat( action.notes ),
+				pageNumber: action.pageNumber,
+				hasMoreNotes: action.hasMoreNotes,
+				totalPages: action.totalPages
 			};
 
 		case LOAD_NOTES_FAILURE:
