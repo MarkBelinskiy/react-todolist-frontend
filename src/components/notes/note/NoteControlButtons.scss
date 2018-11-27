@@ -1,0 +1,27 @@
+.controls {
+  position: absolute;
+  bottom: -20px;
+  right: 0;
+
+  .typography {
+    margin: 20px;
+  }
+
+  button {
+    margin-left: 10px;
+  }
+
+  .raisedPrimary {
+    background-color: #00E676;
+    &:hover {
+      background-color: #00C853;
+    }
+  }
+
+  .removeNoteControls {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+}
+

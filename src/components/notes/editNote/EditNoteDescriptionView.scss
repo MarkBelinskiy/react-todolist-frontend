@@ -1,0 +1,97 @@
+%pattern-list-item {
+  padding: 0;
+  &:hover {
+    .remove-item {
+      @extend %pattern-active-remove-item;
+    }
+  }
+
+  .drag-item {
+    cursor: row-resize;
+  }
+
+  textarea {
+    color: rgba(0, 0, 0, 0.87);
+    font-size: 0.875rem;
+    font-weight: 400;
+    text-align: justify;
+    margin-bottom: 8px;
+    line-height: 1.46429em;
+    padding: 0;
+    resize: none;
+    overflow: hidden;
+
+  }
+  .remove-item {
+    opacity: 0;
+    padding: 10px;
+    color: rgba(0, 0, 0, 0.54);
+    cursor: pointer;
+
+    &:hover {
+      transition: background-color .25s ease-in-out;
+    }
+  }
+  .note-text {
+    width: 90%;
+    margin-top: 0;
+    margin-bottom: 5px;
+  }
+}
+
+%pattern-active-remove-item {
+  color: rgba(0, 0, 0, 1);
+  transition: opacity, color .25s ease-in-out;
+  opacity: 1;
+}
+
+form.edit-note {
+
+  .todo-list {
+    width: 100%;
+    overflow: auto;
+    max-height: 300px;
+    margin: 22px 0;
+    .list-item {
+      @extend %pattern-list-item;
+    }
+
+  }
+  .add-new {
+    position: relative;
+    height: 3em;
+
+    svg {
+      color: rgba(0, 0, 0, 0.54);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  @media screen and (max-width: 768px) /*, screen and (max-height: 700px)*/
+  {
+    .todo-list {
+      max-height: 50vh;
+    }
+  }
+}
+
+body {
+  &.dragging-list {
+    cursor: row-resize !important;
+    position: relative;
+    z-index: 99999;
+  }
+
+  & > .dragging-list-item {
+    @extend %pattern-list-item;
+    .remove-item {
+      @extend %pattern-active-remove-item;
+    }
+
+    background-color: hsla(0, 0%, 97%, 0.81);
+    z-index: 99999;
+  }
+}

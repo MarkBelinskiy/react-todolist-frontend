@@ -1,0 +1,28 @@
+.snackbar {
+  .success {
+    background-color: #43a047;
+  }
+  .warning {
+    background-color: #ffa000;
+
+  }
+  .error {
+    background-color: #d32f2f;
+
+  }
+  .info {
+    background-color: #303f9f;
+
+  }
+  .message {
+    display: flex;
+    align-items: center;
+  }
+  .icon {
+    font-size: 20px;
+  }
+  .icon-variant {
+    opacity: 0.9;
+    margin-right: 8px;
+  }
+}

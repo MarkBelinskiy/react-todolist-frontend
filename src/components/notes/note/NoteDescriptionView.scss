@@ -1,0 +1,25 @@
+.list-item {
+  li {
+    padding: 5px 0;
+  }
+  .icon {
+    color: rgba(0, 0, 0, 0.87);
+    font-size: 20px;
+  }
+  .text-wrap {
+    padding: 0;
+  }
+  .text {
+    color: rgba(0, 0, 0, 0.87);
+    font-size: 0.875rem;
+    font-weight: 400;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  }
+  .done {
+    .icon, .text {
+      color: rgba(0, 0, 0, 0.37);
+      text-decoration: line-through;
+      text-align: justify;
+    }
+  }
+}

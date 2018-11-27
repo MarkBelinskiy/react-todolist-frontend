@@ -1,0 +1,71 @@
+.notes-container {
+  padding: 0 18px 30px 18px;
+}
+
+.grid {
+  max-width: 1400px;
+  height: 100%;
+  margin: 0 auto;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+
+  /* ---- grid-item ---- */
+  &-item {
+    width: 48%;
+    min-height: 20px;
+    float: left;
+    &:hover {
+      border-color: hsla(0, 0%, 100%, 0.5);
+      /*cursor: move;*/
+    }
+  }
+
+  .gutter-sizer {
+    width: 4%;
+  }
+
+}
+
+/* FOR DRAG & DROP
+
+.grid-item.is-dragging,
+.grid-item.is-positioning-post-drag {
+    background: #EA0;
+    z-index: 2;
+}
+.packery-drop-placeholder {
+    outline: 3px dashed hsla(0, 0%, 0%, 0.5);
+    outline-offset: -6px;
+    -webkit-transition: -webkit-transform 0.2s;
+    transition: transform 0.2s;
+}*/
+@media screen and (min-width: 1280px) {
+  /* 1 columns for larger screens */
+  .grid-item {
+    width: 30%;
+  }
+
+  .gutter-sizer {
+    width: 5%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  /* 1 columns for larger screens */
+  .grid-item {
+    width: 100%;
+    margin-bottom: 15px;
+
+  }
+}
