@@ -27,7 +27,6 @@
     float: left;
     &:hover {
       border-color: hsla(0, 0%, 100%, 0.5);
-      /*cursor: move;*/
     }
   }
 
@@ -37,35 +36,48 @@
 
 }
 
-/* FOR DRAG & DROP
-
-.grid-item.is-dragging,
-.grid-item.is-positioning-post-drag {
-    background: #EA0;
-    z-index: 2;
-}
-.packery-drop-placeholder {
-    outline: 3px dashed hsla(0, 0%, 0%, 0.5);
-    outline-offset: -6px;
-    -webkit-transition: -webkit-transform 0.2s;
-    transition: transform 0.2s;
-}*/
-@media screen and (min-width: 1280px) {
-  /* 1 columns for larger screens */
-  .grid-item {
-    width: 30%;
+@media screen and (min-width: 2048px) {
+  .grid {
+    max-width: 2500px;
+    &-item {
+      width: 15%;
+    }
+    .gutter-sizer {
+      width: 2%;
+    }
   }
+}
 
-  .gutter-sizer {
-    width: 5%;
+@media screen and (max-width: 2048px) {
+  .grid {
+    max-width: 1700px;
+    &-item {
+      width: 18%;
+    }
+    .gutter-sizer {
+      width: 2%;
+    }
+  }
+}
+
+@media screen and (max-width: 1280px) {
+  /* 1 columns for larger screens */
+  .grid {
+    max-width: 950px;
+    &-item {
+      width: 30%;
+    }
+    .gutter-sizer {
+      width: 5%;
+    }
   }
 }
 
 @media screen and (max-width: 768px) {
-  /* 1 columns for larger screens */
-  .grid-item {
-    width: 100%;
-    margin-bottom: 15px;
-
+  .grid {
+    max-width: 700px;
+    &-item {
+      width: 100%;
+    }
   }
 }

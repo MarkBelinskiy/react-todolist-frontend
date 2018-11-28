@@ -1,4 +1,4 @@
-import { call, put, takeEvery, select } from 'redux-saga/effects'
+import { call, put, takeLatest, select } from 'redux-saga/effects'
 import { API_URL } from '../../config';
 import axios from 'axios'
 
@@ -14,9 +14,7 @@ function getNotes( pageNumber, size ) {
 
 function* loadNotesSaga( action ) {
 	try {
-
-		const getNotesFields = ( state ) => state.notesFields;
-		const notesFields = yield select( getNotesFields );
+		const notesFields = yield select( ( state ) => state.notesFields );
 		let { hasMoreNotes } = notesFields;
 		const { pageNumber, size } = action;
 
@@ -41,5 +39,5 @@ function* loadNotesSaga( action ) {
 }
 
 export function* watchLoadNotesSaga() {
-	yield takeEvery( LOAD_NOTES_REQUEST, loadNotesSaga );
+	yield takeLatest( LOAD_NOTES_REQUEST, loadNotesSaga );
 }

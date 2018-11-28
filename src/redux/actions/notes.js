@@ -18,7 +18,7 @@ export const CLEAN_ERROR_MESSAGE = 'CLEAN_ERROR_MESSAGE';
 
 
 // NOTE ACTIONS
-export const loadNotesRequest = ( pageNumber = 1, size = 3 ) => ({ type: LOAD_NOTES_REQUEST, pageNumber, size });
+export const loadNotesRequest = ( pageNumber = 1, size = 5 ) => ({ type: LOAD_NOTES_REQUEST, pageNumber, size });
 
 export const addNote = noteItem => ({ type: ADD_NOTE_REQUEST, noteItem });
 
